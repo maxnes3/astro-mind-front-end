@@ -1,1 +1,1 @@
-# AstroMind
+# AstroMind - Frontend
