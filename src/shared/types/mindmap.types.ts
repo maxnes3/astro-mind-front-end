@@ -11,5 +11,5 @@ export interface NodesContextType {
     setNodesList: Dispatch<SetStateAction<NodeType[]>>;
     handleCreateNode: (newNodeData: Omit<NodeType, 'nodeId'>) => void;
     handleEditNode: (updateNodeData: NodeType) => void;
-    handleRemoveNode: (nodeId: Pick<NodeType, 'nodeId'>) => void;
+    handleRemoveNode: (nodeId: NodeType["nodeId"]) => void;
 };
