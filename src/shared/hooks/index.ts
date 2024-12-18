@@ -1,1 +1,2 @@
-export { useNodesContext, NodesContext } from './useNodesContex';
+export { useNodesContext, NodesContext } from './use.nodes.context';
+export { useEdgesContext, EdgesContext } from './use.edges.context';

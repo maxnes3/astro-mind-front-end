@@ -1,0 +1,10 @@
+.edge {
+  --position-x: 0px;
+  --position-y: 0px;
+
+  position: absolute;
+  top: var(--position-y);
+  left: var(--position-x);
+  
+  pointer-events: none;
+}

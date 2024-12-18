@@ -1,26 +1,80 @@
-.node {
-  --position-x: 0px;
-  --position-y: 0px;
+@use '@shared/assets/styles/fonts' as fonts;
 
+.node {
   position: absolute;
-  top: var(--position-y);
-  left: var(--position-x);
+  z-index: 1;
 
   box-sizing: border-box;
   padding: 15px;
-  border: 5px solid black;
   border-radius: 24px;
-  cursor: pointer;
+  cursor: grab;
+
+  background: linear-gradient(135deg, #ffcb6b, #ffa7c4, #c792ea, #82aaff, #89ddff, #a8ff60);
+  background-size: 200% 200%;
+  animation: gradientAnimation 5s ease infinite;
+
+  transition: color 0.3s, outline 0.3s, box-shadow 0.3s;
+
+  color: black;
+  @include fonts.jetbrains-font(18px, 500);
+
+  &:hover {
+    color: white;
+    outline: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
 
   .inputTitle {
     background: transparent;
     border: 0;
     outline: 0;
+    @include fonts.jetbrains-font(18px, 500);
   }
 
   .paragraphTitle {
-    font-weight: 500;
-    color: black;
     margin: 0;
+    cursor: text;
+  }
+
+  .plusButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
+
+  .plusButtonLeft {
+    left: -10px;
+  }
+
+  .plusButtonRight {
+    right: -10px;
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

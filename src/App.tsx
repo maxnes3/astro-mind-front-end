@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { routes } from "@shared/routes";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { routes } from '@shared/routes';
 
 function App() {
   return (

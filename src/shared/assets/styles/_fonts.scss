@@ -1,0 +1,41 @@
+// Fonts
+@font-face {
+    font-family: 'Urbanist';
+    src: url('../fonts/Urbanist-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Urbanist';
+    src: url('../fonts/Urbanist-SemiBold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+// Fonts
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMonoNL-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../fonts/JetBrainsMonoNL-SemiBold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin urbanist-font($size: 14px, $weight: 500) {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: $weight;
+    font-size: $size;
+}
+
+@mixin jetbrains-font($size: 14px, $weight: 500) {
+    font-family: 'JetBrains Mono', sans-serif;
+    font-weight: $weight;
+    font-size: $size;
+}
