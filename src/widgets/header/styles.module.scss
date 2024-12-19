@@ -1,0 +1,43 @@
+@use '@shared/assets/styles/fonts' as fonts;
+
+.header {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    padding: 15px;
+    background-color: white;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    .inputTitle {
+        background: transparent;
+        border: 0;
+        outline: 0;
+        @include fonts.jetbrains-font(18px, 500);
+      }
+    
+    .paragraphTitle {
+        margin: 0;
+        cursor: text;
+        @include fonts.jetbrains-font(18px, 500);
+    }
+
+    .button {
+        padding: 15px;
+        border-radius: 16px;
+        border: 0;
+        background: black;
+        color: white;
+        cursor: pointer;
+
+        @include fonts.jetbrains-font(18px, 500);
+    }
+}

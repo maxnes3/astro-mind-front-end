@@ -33,6 +33,10 @@ export const Node: FC<NodeProps> = ({ data }) => {
 
   const handleBlur = () => {
     setIsEditing(false);
+    if (!title.length) {
+      setTitle(initialTitle);
+      return;
+    }
     handleEditNode({ ...data, title });
   };
 

@@ -31,5 +31,5 @@
       "@feature/*": ["./feature/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "declaration.d.ts"]
 }

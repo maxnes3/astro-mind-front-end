@@ -1,0 +1,59 @@
+@use "@shared/assets/styles/fonts" as fonts;
+
+.map {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 16px;
+  padding: 15px;
+  gap: 16px;
+
+  .index {
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+    background: linear-gradient(
+      135deg,
+      #ffcb6b,
+      #ffa7c4,
+      #c792ea,
+      #82aaff,
+      #89ddff,
+      #a8ff60
+    );
+    background-size: 200% 200%;
+    animation: gradientAnimation 5s ease infinite;
+    border-radius: 10px;
+
+
+    transition:
+      color 0.3s,
+      outline 0.3s,
+      box-shadow 0.3s;
+
+    @include fonts.jetbrains-font(18px, 500);
+  }
+
+  .title {
+    color: black;
+
+    @include fonts.jetbrains-font(18px, 500);
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

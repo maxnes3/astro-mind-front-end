@@ -1,10 +1,14 @@
-import { EdgesContext, NodesContext } from '@shared/hooks';
-import { EdgeType, NodeType } from '@shared/types';
+import { apiMaps } from '@/shared/api';
+import { EdgesContext, MapContext, NodesContext } from '@shared/hooks';
+import { EdgeType, MapRequest, MapType, NodeType } from '@shared/types';
 import { MindMapLayout } from '@widgets/layouts/mindmap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-const initialNodesState: NodeType[] = [
+const __initialMapState: MapType = { id: uuidv4(), title: 'NewMap*' };
+
+const __initialNodesState: NodeType[] = [
   {
     nodeId: uuidv4(),
     title: 'Root Node',
@@ -12,11 +16,36 @@ const initialNodesState: NodeType[] = [
   },
 ];
 
-const initialEdgesState: EdgeType[] = [];
+const __initialEdgesState: EdgeType[] = [];
 
 export const MindMapPage = () => {
-  const [nodesList, setNodesList] = useState<NodeType[]>(initialNodesState);
-  const [edgesList, setEdgesList] = useState<EdgeType[]>(initialEdgesState);
+  const { mapId } = useParams();
+
+  const [map, setMap] = useState<MapType>(__initialMapState);
+  const [nodesList, setNodesList] = useState<NodeType[]>(__initialNodesState);
+  const [edgesList, setEdgesList] = useState<EdgeType[]>(__initialEdgesState);
+
+  const handleGetMapById = async (id: MapType['id']) => {
+    const response = await apiMaps.getMapById(id);
+    setMap({ id: response.id, title: response.title });
+    setNodesList(response.nodes);
+    setEdgesList(response.edges);
+  };
+
+  const handleSaveMap = async (mapData: MapType) => {
+    const saveMapData: MapRequest = {
+      ...mapData,
+      nodes: nodesList,
+      edges: edgesList,
+    };
+    const response = await apiMaps.saveMap(saveMapData);
+    if (!response) {
+      return;
+    }
+    setMap(saveMapData);
+  };
+
+  const handleDeleteMapById = () => {};
 
   const handleCreateNode = (newNodeData: NodeType) => {
     setNodesList((prevNodesList) => [...prevNodesList, { ...newNodeData }]);
@@ -40,21 +69,38 @@ export const MindMapPage = () => {
     setEdgesList((prevEdgesList) => [...prevEdgesList, newEdgeData]);
   };
 
+  useEffect(() => {
+    if (!mapId) {
+      return;
+    }
+    handleGetMapById(mapId);
+  }, [mapId]);
+
   return (
-    <NodesContext.Provider
+    <MapContext.Provider
       value={{
-        nodesList,
-        setNodesList,
-        handleCreateNode,
-        handleEditNode,
-        handleRemoveNode,
+        map,
+        setMap,
+        handleGetMapById,
+        handleSaveMap,
+        handleDeleteMapById,
       }}
     >
-      <EdgesContext.Provider
-        value={{ edgesList, setEdgesList, handleCreateEdge }}
+      <NodesContext.Provider
+        value={{
+          nodesList,
+          setNodesList,
+          handleCreateNode,
+          handleEditNode,
+          handleRemoveNode,
+        }}
       >
-        <MindMapLayout />
-      </EdgesContext.Provider>
-    </NodesContext.Provider>
+        <EdgesContext.Provider
+          value={{ edgesList, setEdgesList, handleCreateEdge }}
+        >
+          <MindMapLayout />
+        </EdgesContext.Provider>
+      </NodesContext.Provider>
+    </MapContext.Provider>
   );
 };
